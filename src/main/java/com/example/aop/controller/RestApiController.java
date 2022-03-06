@@ -1,5 +1,6 @@
 package com.example.aop.controller;
 
+import com.example.aop.annotation.Decode;
 import com.example.aop.annotation.Timer;
 import com.example.aop.dto.User;
 import org.springframework.util.StopWatch;
@@ -18,13 +19,15 @@ public class RestApiController {
 
     @PostMapping("/post")
     public User post(@RequestBody User user){
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-        stopWatch.stop();
-        System.out.println("total time: " + stopWatch.getTotalTimeSeconds());
         return user;
+    }
 
-
+    @Decode
+    @PutMapping("/put")
+    public User put(@RequestBody User user){
+        System.out.println("put");
+        System.out.println(user);
+        return user;
     }
 
     @Timer
