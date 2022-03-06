@@ -1,6 +1,8 @@
 package com.example.aop.controller;
 
+import com.example.aop.annotation.Timer;
 import com.example.aop.dto.User;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,8 +18,21 @@ public class RestApiController {
 
     @PostMapping("/post")
     public User post(@RequestBody User user){
-        System.out.println("post method : " + user);
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        stopWatch.stop();
+        System.out.println("total time: " + stopWatch.getTotalTimeSeconds());
         return user;
+
+
+    }
+
+    @Timer
+    @DeleteMapping("/delete")
+    public void delete() throws InterruptedException{
+
+        // db logic
+        Thread.sleep(1000 * 2);
 
     }
 }
